@@ -8,6 +8,10 @@ import router from './router'
 import 'bootstrap'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Raphael from 'raphael/raphael'
+global.Raphael = Raphael
+global.jQuery = require('jquery');
+
 
 
 Vue.use(BootstrapVue)
@@ -22,6 +26,7 @@ Vue.config.productionTip = false
 
 
 new Vue({
+  template:'',
   router,
   render: h => h(App)
 }).$mount('#app')

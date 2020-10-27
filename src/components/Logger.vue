@@ -20,7 +20,7 @@
             id="exampleInputPassword1"
           />
         </div>
-        <button type="submit" class="btn btn-primary">LogIn</button>
+        <button type="submit" class="btn btn-primary">Sign In</button>
       </form>
     </div>
   </div>

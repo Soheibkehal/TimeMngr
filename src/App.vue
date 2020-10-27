@@ -2,18 +2,24 @@
   <div id="app">
     <div id="nav">
       <router-link to="/login">Login</router-link> |
-      <router-link to="/signin">Sign In </router-link> |
       <router-link to="/">Dashboard</router-link> |
+  
     </div>
     <router-view />
   </div>
 </template>
 
+<script>
+export default {
+  
+
+}
+</script>
 
 <style>
 html,
 body {
-  background-color:#161617;
+  background-color: #161617;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
