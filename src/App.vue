@@ -9,11 +9,10 @@
   </div>
 </template>
 
-
 <style>
 html,
 body {
-  background-color:#161617;
+  background-color: #161617;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -22,7 +21,26 @@ body {
 body {
   margin: 0;
 }
-
+p,
+input::placeholder {
+  font-family: "Lato", sans-serif;
+}
+h1,
+h2,
+h3 {
+  font-family: "Montserrat", sans-serif;
+}
+button {
+  border-radius: 20px;
+  background-color: #dfc824;
+  color: #fff;
+  font-size: 1vw;
+  font-weight: bold;
+  padding: 10px 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -39,6 +57,7 @@ body {
 #nav a {
   left: 25%;
   font-weight: bold;
+  font-family: Montserrat;
   color: white;
 }
 
