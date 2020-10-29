@@ -20,8 +20,7 @@
             id="exampleInputPassword1"
           />
         </div>
-        <button type="submit" class="btn btn-primary">LogIn</button>
-        <button v-on:click="Destroy" type="submit" class="btn btn-primary">Disconnect</button>
+        <button type="submit" class="btn btn-primary">Sign In</button>
       </form>
     </div>
   </div>
@@ -31,13 +30,6 @@
 <script>
 export default {
   name: "Login",
-
-
-  methods:{
-    Destroy(){
-    localStorage.clear();
-  }
-  }
 };
 </script>
 
@@ -50,7 +42,7 @@ export default {
   align-items: center;
   margin-top: 5vw;
   width: 30vw;
-  height: 30vw;
+  height: 20vw;
   border-radius: 2vw;
   overflow: hidden;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
