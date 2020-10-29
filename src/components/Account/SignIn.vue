@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    
-    <h1>SignIn</h1>
+    <h1>Sign In</h1>
     <div class="overlay-container">
       <form>
         <div class="form-group">
@@ -9,7 +8,6 @@
             type="text"
             class="form-control"
             placeholder="First name"
-            
             id="FirstName"
           />
         </div>
@@ -35,45 +33,18 @@
             type="password"
             placeholder="Password"
             class="form-control"
-            
             id="exampleInputPassword1"
           />
         </div>
-       <button v-on:click="signIn" type="button" class="btn btn-primary">Sign In</button>
-       
+        <button type="submit" class="btn btn-primary">Sign In</button>
       </form>
-       
-      
     </div>
   </div>
-  
 </template>
 
 <script>
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
 export default {
   name: "Signin",
-  data(){
-    return {
-      userName:'',
-      userid:''
-    }
-  },
-  methods:{
-    async signIn() {
-      await axios.get(`http://localhost:4000/api/users/2`)
-       .then(Response => this.userid = Response.data.data.id);
-      await axios.get(`http://localhost:4000/api/users/2`)
-       .then(Response => this.UserName = Response.data.data.fname);          
-      localStorage.setItem('userid', this.userid);
-      localStorage.setItem('UserName', this.UserName);
-      
-    },
-    
-  }
-  
 };
 </script>
 
