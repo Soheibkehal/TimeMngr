@@ -1,9 +1,11 @@
 <template>
+
   <div id="app">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div id="nav">
       <router-link to="/login">Login</router-link> |
       <router-link to="/signin">Signin</router-link> |
-      <router-link to="/">Dashboard</router-link> |
+      
       
   
     </div>

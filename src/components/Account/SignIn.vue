@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h1>SignIn</h1>
     <div class="overlay-container">
       <form>

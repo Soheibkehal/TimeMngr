@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="container">
       <div class="row">
         <div class="col-md-5">

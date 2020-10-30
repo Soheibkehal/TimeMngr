@@ -1,10 +1,12 @@
 <template>
   <div class="container">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h1>LogIn</h1>
     <div class="overlay-container">
       <form>
         <div class="form-group">
           <input
+            v-model ="myLogin"
             type="email"
             class="form-control"
             placeholder="Email"
@@ -14,14 +16,15 @@
         </div>
         <div class="form-group">
           <input
+            v-model="myPass"
             type="password"
             placeholder="Password"
             class="form-control"
             id="exampleInputPassword1"
           />
         </div>
-        <button type="submit" class="btn btn-primary">LogIn</button>
-        <button v-on:click="Destroy" type="submit" class="btn btn-primary">Disconnect</button>
+        <button type="button" v-on:click="goToSite" class="btn btn-primary">LogIn</button>
+        <button v-on:click="Register" type="button" class="btn btn-primary">Register</button>
       </form>
     </div>
   </div>
@@ -31,12 +34,31 @@
 <script>
 export default {
   name: "Login",
-
+  data(){
+    return{
+      login: "soheib@hotmail.fr",
+      password: "soheib",
+      myLogin:"",
+      myPass:"",
+      // ici bg tu fais les call api pour recup les mdp et les stocker dans les variable vides
+      
+      
+    }
+  },
 
   methods:{
-    Destroy(){
-    localStorage.clear();
-  }
+    Register(){
+     this.$router.push({ name: 'SignIn' });
+    },
+    goToSite(){
+      if (this.myLogin == this.login && this.myPass == this.password){
+          console.log("tout est bon");
+          this.$router.push({ name: 'Dashboard' });
+      }
+      
+      
+    }
+  
   }
 };
 </script>
