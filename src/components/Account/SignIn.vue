@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <h1>Sign In</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>SignIn</h1>
     <div class="overlay-container">
       <form>
         <div class="form-group">
@@ -8,6 +9,7 @@
             type="text"
             class="form-control"
             placeholder="First name"
+            
             id="FirstName"
           />
         </div>
@@ -33,18 +35,45 @@
             type="password"
             placeholder="Password"
             class="form-control"
+            
             id="exampleInputPassword1"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Sign In</button>
+       <button v-on:click="signIn" type="button" class="btn btn-primary">Sign In</button>
+       
       </form>
+       
+      
     </div>
   </div>
+  
 </template>
 
 <script>
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
 export default {
   name: "Signin",
+  data(){
+    return {
+      userName:'',
+      userid:''
+    }
+  },
+  methods:{
+    async signIn() {
+      await axios.get(`http://localhost:4000/api/users/2`)
+       .then(Response => this.userid = Response.data.data.id);
+      await axios.get(`http://localhost:4000/api/users/2`)
+       .then(Response => this.UserName = Response.data.data.fname);          
+      localStorage.setItem('userid', this.userid);
+      localStorage.setItem('UserName', this.UserName);
+      
+    },
+    
+  }
+  
 };
 </script>
 
@@ -57,7 +86,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 1vw;
-  width: 40vw;
+  width: 30vw;
   height: 30vw;
   border-radius: 2vw;
   overflow: hidden;
