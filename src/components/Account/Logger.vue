@@ -36,11 +36,11 @@ export default {
   name: "Login",
   data(){
     return{
-      login: "soheib@hotmail.fr",
-      password: "soheib",
+      login: "test@hotmail.fr",
+      password: "test",
       myLogin:"",
       myPass:"",
-      // ici bg tu fais les call api pour recup les mdp et les stocker dans les variable vides
+      // ici bg tu fais les call api pour recup les mdp et les stocker dans les variable
       
       
     }
