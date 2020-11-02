@@ -1,6 +1,9 @@
 import axios from "axios";
 import { URL } from "../config/constants";
 import moment from "moment";
+import { getUserData } from "./localStorage";
+
+const { user_id, crsf_token: token } = getUserData();
 
 export const getLastWorkingTime = async (time) => {
   const start = moment(time, "HH:mm:ss")
@@ -17,7 +20,13 @@ export const getLastWorkingTime = async (time) => {
 
 export const getWorkingtimes = async (start, end) => {
   const response = await axios.get(
-    `${URL}/workingtimes/1?start=${start}&end=${end}`
+    `${URL}/workingtimes/${user_id}?start=${start}&end=${end}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   const workingtimes = response.data.data;
@@ -37,9 +46,10 @@ export const addWorkingtime = async (start, end) => {
 
   const config = {
     method: "post",
-    url: "http://localhost:4000/api/workingtimes/1",
+    url: `${URL}/api/workingtimes/${user_id}`,
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     data,
   };
@@ -58,9 +68,10 @@ export const updateWorkingtime = async (start, end, id) => {
 
   const config = {
     method: "post",
-    url: "http://localhost:4000/api/workingtimes/1",
+    url: `${URL}/api/workingtimes/${user_id}`,
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     data,
   };
@@ -71,7 +82,7 @@ export const updateWorkingtime = async (start, end, id) => {
 export const deleteWorkingtime = async (id) => {
   const config = {
     method: "delete",
-    url: `http://localhost:4000/api/workingtimes/${id}`,
+    url: `${URL}/api/workingtimes/${id}`,
     headers: {
       "Content-Type": "application/json",
     },
