@@ -52,7 +52,6 @@ export default {
       // ici bg tu fais les call api pour recup les mdp et les stocker dans les variable
     };
   },
-
   methods: {
     Register() {
       this.$router.push({ name: "SignIn" });
