@@ -86,7 +86,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 1vw;
-  width: 40vw;
+  width: 30vw;
   height: 30vw;
   border-radius: 2vw;
   overflow: hidden;
