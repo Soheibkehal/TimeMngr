@@ -30,7 +30,6 @@ export default {
   name: "Clock",
   data() {
     return {
-      
       lastClock: {},
     };
   },
