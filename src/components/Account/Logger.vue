@@ -41,14 +41,12 @@
   </div>
 </template>
 
-
 <script>
+import { login } from "../../api/account";
 export default {
   name: "Login",
   data() {
     return {
-      login: "test@hotmail.fr",
-      password: "test",
       myLogin: "",
       myPass: "",
       // ici bg tu fais les call api pour recup les mdp et les stocker dans les variable
@@ -59,14 +57,14 @@ export default {
     Register() {
       this.$router.push({ name: "SignIn" });
     },
-    SignIn() {
-      if (this.myLogin == this.login && this.myPass == this.password) {
+    async SignIn() {
+      const data = await login(this.myLogin, this.myPass);
+      if (data) {
         console.log("tout est bon");
         this.$store.commit("setAuthentication", true);
         this.$router.replace({ name: "Dashboard" });
       }
     },
-
   },
 };
 </script>
