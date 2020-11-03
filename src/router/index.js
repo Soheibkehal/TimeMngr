@@ -22,6 +22,17 @@ const routes = [
     name: "SignIn",
     component: () => import("@/components/Account/SignIn.vue"),
   },
+  // new add page
+  {
+    path: "/myaccount",
+    name: "MyAccount",
+    component: () => import("@/components/Account/MyAccount.vue"),
+  },
+  {
+    path: "/teams",
+    name: "Teams",
+    component: () => import("@/components/Account/Teams.vue"),
+  },
   {
     path: '/private',
     name: 'private',
