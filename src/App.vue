@@ -1,7 +1,9 @@
 <template>
   <div id="app">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div id="nav"><router-link to="/login">Login</router-link> |</div>
+
     <router-view />
   </div>
 </template>

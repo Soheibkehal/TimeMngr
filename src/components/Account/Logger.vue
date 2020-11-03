@@ -43,6 +43,7 @@
 
 <script>
 import { login } from "../../api/account";
+import { setUserData } from "../../api/localStorage";
 export default {
   name: "Login",
   data() {
@@ -52,7 +53,6 @@ export default {
       // ici bg tu fais les call api pour recup les mdp et les stocker dans les variable
     };
   },
-
   methods: {
     Register() {
       this.$router.push({ name: "SignIn" });
@@ -63,6 +63,7 @@ export default {
         console.log("tout est bon");
         this.$store.commit("setAuthentication", true);
         this.$router.replace({ name: "Dashboard" });
+        setUserData(data.id, data.role_id, data.crsf_token);
       }
     },
   },
