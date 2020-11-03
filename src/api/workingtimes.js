@@ -3,6 +3,7 @@ import moment from "moment";
 
 import { URL, user_id, loggedHeaders } from "../config/constants";
 axios.defaults.headers = loggedHeaders;
+axios.defaults.withCredentials = true;
 
 export const getLastWorkingTime = async (time) => {
   const start = moment(time, "HH:mm:ss")
@@ -41,7 +42,8 @@ export const addWorkingtime = async (start, end) => {
 
   const config = {
     method: "post",
-    url: `${URL}/api/workingtimes/${user_id}`,
+    url: `${URL}/workingtimes/${user_id}`,
+    headers: loggedHeaders,
     data,
   };
 
@@ -59,7 +61,8 @@ export const updateWorkingtime = async (start, end, id) => {
 
   const config = {
     method: "post",
-    url: `${URL}/api/workingtimes/${user_id}`,
+    url: `${URL}/workingtimes/${user_id}`,
+    headers: loggedHeaders,
     data,
   };
 
@@ -69,7 +72,8 @@ export const updateWorkingtime = async (start, end, id) => {
 export const deleteWorkingtime = async (id) => {
   const config = {
     method: "delete",
-    url: `${URL}/api/workingtimes/${user_id}/${id}`,
+    url: `${URL}/workingtimes/${user_id}/${id}`,
+    headers: loggedHeaders,
   };
 
   await axios(config);

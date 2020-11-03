@@ -149,6 +149,8 @@ export default {
       });
     },
     selectDate(date) {
+      this.selectedStart = "";
+      this.selectedEnd = "";
       this.selectedDate = date;
     },
     setDates() {
@@ -169,7 +171,7 @@ export default {
         "HH:mm:ss"
       );
       this.selectedEnd = moment(workingtime.end, "HH:mm:ss").format("HH:mm:ss");
-      this.selectDate(date);
+      this.selectedDate = date;
     },
     async setUpdateWorkingtime() {
       const { startDate, endDate } = this.setDates();

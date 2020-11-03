@@ -22,5 +22,6 @@ export const postClock = async (bool) => {
     url: `${URL}/clocks/${user_id}`,
     data,
   };
-  await axios(config);
+  const res = await axios(config);
+  console.log(res.data);
 };
