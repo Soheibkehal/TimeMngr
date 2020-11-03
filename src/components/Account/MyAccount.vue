@@ -60,6 +60,15 @@
           <div class="form-group">
             <div
               class="form-control"
+              placeholderr="Role"
+              style="text-align: left"
+            >
+              <p><b>Skills :</b> Nothing</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div
+              class="form-control"
               placeholderr="Team"
               style="text-align: left"
             >
