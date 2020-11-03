@@ -3,7 +3,7 @@ import moment from "moment";
 
 import { URL, user_id, loggedHeaders } from "../config/constants";
 axios.defaults.headers = loggedHeaders;
-
+axios.defaults.withCredentials = true;
 export const getClock = async () => {
   const res = await axios.get(`${URL}/clocks/${user_id}`, {
     headers: loggedHeaders,

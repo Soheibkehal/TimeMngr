@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { URL, user_id, loggedHeaders } from "../config/constants";
 axios.defaults.headers = loggedHeaders;
-
+axios.defaults.withCredentials = true;
 export const getTeamUser = () => {
     const config = {
         method: "get",
