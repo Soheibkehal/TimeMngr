@@ -1,19 +1,21 @@
 import axios from "axios";
-import { URL } from "../config/constants";
 import moment from "moment";
-import { getUserData } from "./localStorage";
 
-const { user_id, crsf_token: token } = getUserData();
+import { URL, user_id, loggedHeaders } from "../config/constants";
+axios.defaults.headers = loggedHeaders;
 
 export const getLastWorkingTime = async (time) => {
   const start = moment(time, "HH:mm:ss")
     .subtract(10, "seconds")
     .format("HH:mm:ss");
+
   const end = moment(time, "HH:mm:ss")
     .add(10, "seconds")
     .format("HH:mm:ss");
+
   const startDate = `${moment().format("YYYY-MM-DD")} ${start}`;
   const endDate = `${moment().format("YYYY-MM-DD")} ${end}`;
+
   const workingtimes = await getWorkingtimes(startDate, endDate);
   return workingtimes[0];
 };
@@ -21,12 +23,7 @@ export const getLastWorkingTime = async (time) => {
 export const getWorkingtimes = async (start, end) => {
   const response = await axios.get(
     `${URL}/workingtimes/${user_id}?start=${start}&end=${end}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
+    { headers: loggedHeaders }
   );
 
   const workingtimes = response.data.data;
@@ -35,8 +32,6 @@ export const getWorkingtimes = async (start, end) => {
 };
 
 export const addWorkingtime = async (start, end) => {
-  console.log(start);
-  console.log(end);
   const data = JSON.stringify({
     working_time: {
       start,
@@ -47,10 +42,6 @@ export const addWorkingtime = async (start, end) => {
   const config = {
     method: "post",
     url: `${URL}/api/workingtimes/${user_id}`,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
     data,
   };
 
@@ -69,10 +60,6 @@ export const updateWorkingtime = async (start, end, id) => {
   const config = {
     method: "post",
     url: `${URL}/api/workingtimes/${user_id}`,
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
     data,
   };
 
@@ -82,10 +69,7 @@ export const updateWorkingtime = async (start, end, id) => {
 export const deleteWorkingtime = async (id) => {
   const config = {
     method: "delete",
-    url: `${URL}/api/workingtimes/${id}`,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    url: `${URL}/api/workingtimes/${user_id}/${id}`,
   };
 
   await axios(config);
