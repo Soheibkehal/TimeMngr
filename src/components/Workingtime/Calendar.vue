@@ -71,7 +71,6 @@ import {
   updateWorkingtime,
   deleteWorkingtime,
 } from "../../api/workingtimes";
-
 export default {
   name: "Calendar",
   data() {
