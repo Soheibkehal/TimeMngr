@@ -1,113 +1,38 @@
 <template>
-    <div class="overlay-container">
-    <div class="containerg">
-    <h2><img src="../../img/avatar_2.png" height="50px" width="50px" alt=""/>&emsp; &#160;Teams Vanissa</h2>
-    <br>
-      <form>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Name" style="text-align:left" >
-            <p><b>Vanissa</b></p>
-          </div>        
+  <div class="container-teams">
+    <div id="team-container">
+      <div class="upper-container">
+        <h2>TEAMS</h2>
+        <button>ADD</button>
+      </div>
+      <div class="list-container">
+        <div class="team-element">
+          <p class="team">Equipe administative</p>
+          <p class="p-btn">Update</p>
+          <p class="p-btn">Delete</p>
         </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Lname" style="text-align:left" >
-            <p><b>Soheib</b></p>
-          </div>        
+        <div class="team-element">
+          <p class="team">Equipe administative</p>
+          <p class="p-btn">Update</p>
+          <p class="p-btn">Delete</p>
         </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Email" style="text-align:left" >
-            <p><b>Hugo</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Role" style="text-align:left" >
-            <p><b>Marie</b></p>
-          </div>        
-        </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
-      </form>
+      </div>
     </div>
-    <div class="containerd">
-    <h2><img src="../../img/avatar_2.png" height="50px" width="50px" alt=""/>&emsp; &#160;Teams Soheib</h2>
-    <br>
-      <form>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Name" style="text-align:left" >
-            <p><b>Vanissa</b></p>
-          </div>        
+    <div id="user-container">
+      <div class="upper-container">
+        <h2>USERS</h2>
+        <button>ADD</button>
+      </div>
+      <div class="list-container">
+        <div class="team-element">
+          <p class="team">Hugo DEL PIA</p>
+          <p class="p-btn">Delete</p>
         </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Lname" style="text-align:left" >
-            <p><b>Soheib</b></p>
-          </div>        
+        <div class="team-element">
+          <p class="team">William SAURHIN</p>
+          <p class="p-btn">Delete</p>
         </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Email" style="text-align:left" >
-            <p><b>Hugo</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Role" style="text-align:left" >
-            <p><b>Marie</b></p>
-          </div>        
-        </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
-      </form>
-    </div>
-    <br>
-    <div class="containergb">
-    <h2><img src="../../img/avatar_2.png" height="50px" width="50px" alt=""/>&emsp; &#160;Teams Hugo</h2>
-    <br>
-      <form>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Name" style="text-align:left" >
-            <p><b>Vanissa</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Lname" style="text-align:left" >
-            <p><b>Soheib</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Email" style="text-align:left" >
-            <p><b>Hugo</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Role" style="text-align:left" >
-            <p><b>Marie</b></p>
-          </div>        
-        </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
-      </form>
-    </div>
-    <div class="containerdb">
-    <h2><img src="../../img/avatar_2.png" height="50px" width="50px" alt=""/>&emsp; &#160;Teams Marie</h2>
-    <br>
-      <form>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Name" style="text-align:left" >
-            <p><b>Vanissa</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Lname" style="text-align:left" >
-            <p><b>Soheib</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Email" style="text-align:left" >
-            <p><b>Hugo</b></p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Role" style="text-align:left" >
-            <p><b>Marie</b></p>
-          </div>        
-        </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -118,113 +43,80 @@ export default {
 };
 </script>
 
-<style scoped>
-.containerg {
-  position: relative;
-  display: flex;
-  top: 0vw;
-  left: 10vw;
-  width: 20vw;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2vw;
-  width: 30vw;
-  height: 30vw;
-  border-radius: 2vw;
-  overflow: hidden;
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
-  background-color: #283036;
-}
-.containerd {
-  position: relative;
-  display: flex;
-  top: -32vw;
-  left : 50vw;
-  width: 20vw;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2vw;
-  width: 30vw;
-  height: 30vw;
-  border-radius: 2vw;
-  overflow: hidden;
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
-  background-color: #283036;
-;
-}
-.containergb {
-  position: relative;
-  display: flex;
-  top: -30vw;
-  left: 10vw;
-  width: 20vw;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2vw;
-  width: 30vw;
-  height: 30vw;
-  border-radius: 2vw;
-  overflow: hidden;
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
-  background-color: #283036;
-}
-.containerdb {
-  position: relative;
-  display: flex;
-  top: -62vw;
-  left: 50vw;
-  width: 20vw;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2vw;
-  width: 30vw;
-  height: 30vw;
-  border-radius: 2vw;
-  overflow: hidden;
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
-  background-color: #283036;
-}
-.container h1 {
-  font-size: 1vw;
-  font-weight: bold;
+<style lang="scss">
+h2 {
+  text-align: left;
   color: white;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 1vw 0 2vw;
-  font-family: 'Montserrat', sans-serif;
-}
-.overlay-container {
-  top: 8vw;
-  left: 10vw;
-  width: 20vw;
-}
-button {
-  border-radius: 20px;
-  background-color: #dfc824;
-  color: #fff;
-  margin-top : 1.5vw;
+  width: 85%;
+  margin: 1vw auto 0.3vw;
   font-size: 1vw;
-  font-weight: bold;
-  padding: 10px 40px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 }
-.form-control{
-  background-color: transparent;
-  color : white;
-  border: 0;
-  border-bottom: 2px solid #dfc824;
-}
-input::placeholder{
-  color : #dfc824;
-}
-input{
-  background-color:white;
+.container-teams {
+  display: flex;
+  width: 80vw;
+  margin: 0 auto;
+  justify-content: space-between;
+
+  .upper-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+  }
+
+  #team-container {
+    width: 35%;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2),
+      0px 10px 10px rgba(0, 0, 0, 0.2);
+    background-color: #1f2224;
+    border-radius: 2vw;
+    padding: 1vw 1vw;
+    .team-element {
+      p.team {
+        width: 60%;
+      }
+    }
+  }
+
+  #user-container {
+    width: 60%;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2),
+      0px 10px 10px rgba(0, 0, 0, 0.2);
+    background-color: #1f2224;
+    border-radius: 2vw;
+    padding: 1vw 1vw;
+    .team-element {
+      p.team {
+        width: 80%;
+      }
+    }
+  }
+  .team-element {
+    display: flex;
+    min-height: 3vw;
+    border-bottom: 1px solid #161617;
+    align-items: center;
+    &:last-child {
+      border: 0;
+    }
+    p.team {
+      margin: 0;
+      font-size: 1.2vw;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+    }
+    p.team:hover {
+      color: #dfc824;
+    }
+    p.p-btn {
+      color: #dfc824;
+      font-size: 1vw;
+      font-weight: 700;
+      cursor: pointer;
+      width: auto;
+      margin: 0 1vw;
+    }
+  }
 }
 </style>

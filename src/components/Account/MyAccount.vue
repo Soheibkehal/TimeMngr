@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <br><br><br>
-    <h1><img src="../../img/avatar_2.png" height="50px" width="50px" alt=""/>&emsp; &#160;My Account</h1>
+    <h1>&emsp; &#160;My Account</h1>
     <br>
     <div class="overlay-container">
       <form>
