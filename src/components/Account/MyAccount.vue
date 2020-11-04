@@ -1,37 +1,88 @@
 <template>
-  <div class="container">
-    <br><br><br>
-    <h1>&emsp; &#160;My Account</h1>
-    <br>
-    <div class="overlay-container">
-      <form>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Name" style="text-align:left" >
-            <p><b>Name :</b> Vanissa</p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Lname" style="text-align:left" >
-            <p><b>Last Name :</b> Balakichenane</p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Email" style="text-align:left" >
-            <p><b>Email :</b> epitech@epitech.eu</p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Role" style="text-align:left" >
-            <p><b>Role :</b> Nothing</p>
-          </div>        
-        </div>
-        <div class="form-group">
-          <div class="form-control" placeholderr="Team" style="text-align:left" >
-            <p><b>Team :</b> Nothing</p>
-          </div>        
-        </div>
-        <button type="submit" class="btn btn-primary">Disconnect</button>
-      </form>
+
+  <div>
+     <button
+      v-on:click="Skills"
+      type="button"
+      id="register"
+      class="btn btn-primary"
+    >
+      Skills
+    </button>
+    <div class="container">
+      <br /><br /><br />
+      <h1>
+        <img
+          src="../../assets/BG.jpg"
+          height="50px"
+          width="50px"
+          alt=""
+        />&emsp; &#160;My Account
+      </h1>
+      <br />
+      <div class="overlay-container">
+        <form>
+          <div class="form-group">
+            <div
+              class="form-control"
+              placeholderr="Name"
+              style="text-align: left"
+            >
+              <p><b>Name :</b> Vanissa</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div
+              class="form-control"
+              placeholderr="Lname"
+              style="text-align: left"
+            >
+              <p><b>Last Name :</b> Balakichenane</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div
+              class="form-control"
+              placeholderr="Email"
+              style="text-align: left"
+            >
+              <p><b>Email :</b> epitech@epitech.eu</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div
+              class="form-control"
+              placeholderr="Role"
+              style="text-align: left"
+            >
+              <p><b>Role :</b> Nothing</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div
+              class="form-control"
+              placeholderr="Role"
+              style="text-align: left"
+            >
+              <p><b>Skills :</b> Nothing</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div
+              class="form-control"
+              placeholderr="Team"
+              style="text-align: left"
+            >
+              <p><b>Team :</b> Nothing</p>
+            </div>
+          </div>
+          <button type="button" v-on:click="Disconnect" class="btn btn-primary">
+            Disconnect
+          </button>
+        </form>
+      </div>
+
+  
     </div>
     <br><br><br>
   </div>
@@ -55,6 +106,7 @@ export default {
   methods: {
     Disconnect() {
       localStorage.clear();
+      this.$router.push({path : "/login"});
     },
     Skills() {
       this.$router.push({ name: "SkillManager" });
