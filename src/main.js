@@ -91,6 +91,11 @@ const router = new VueRouter({
       path: "/teams",
       name: "Teams",
       component: () => import("@/components/Account/Teams.vue")
+    },
+    {
+      path: "/users",
+      name: "Users",
+      component: () => import("@/components/Account/Users.vue")
     }
   ],
 

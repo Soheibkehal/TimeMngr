@@ -101,12 +101,13 @@ export default {
   methods: {
     Disconnect() {
       localStorage.clear();
+      this.$router.push({path : "/login"});
     },
     Skills() {
       this.$router.push({ name: "SkillManager" });
     },
   },
-};
+};s
 </script>
 
 <style scoped>
