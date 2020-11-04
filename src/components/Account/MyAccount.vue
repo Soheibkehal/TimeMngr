@@ -1,4 +1,5 @@
 <template>
+
   <div>
      <button
       v-on:click="Skills"
@@ -80,12 +81,15 @@
           </button>
         </form>
       </div>
+
+  
     </div>
-    <br /><br /><br />
+    <br><br><br>
   </div>
 </template>
 
 <script>
+import { getUser } from "../../api/account";
 export default {
   name: "MyAccount",
   data() {
@@ -96,6 +100,7 @@ export default {
         { text: "Deux", value: "B" },
         { text: "Trois", value: "C" },
       ],
+      user: {},
     };
   },
   methods: {
@@ -106,6 +111,12 @@ export default {
     Skills() {
       this.$router.push({ name: "SkillManager" });
     },
+    async getUserInfo() {
+      this.user = await getUser();
+    },
+  },
+  created() {
+    this.getUserInfo();
   },
 };
 </script>
@@ -118,22 +129,22 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 2vw;
-  width: 30vw;
-  height: 35vw;
+  width: 50vw;
+  height: 30vw;
   border-radius: 2vw;
   overflow: hidden;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
   background-color: #1f2224;
+;
 }
-
 .container h1 {
   font-size: 1vw;
   font-weight: bold;
   color: white;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin: -3vw 0 2vw;
-  font-family: "Montserrat", sans-serif;
+  margin: 1vw 0 2vw;
+  font-family: 'Montserrat', sans-serif;
 }
 .overlay-container {
   top: 8vw;
@@ -144,25 +155,25 @@ button {
   border-radius: 20px;
   background-color: #dfc824;
   color: #fff;
-  margin-top: 1.5vw;
+  margin-top : 1.5vw;
   font-size: 1vw;
   font-weight: bold;
   padding: 10px 40px;
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
-.form-control {
+.form-control{
   background-color: transparent;
-  color: white;
+  color : white;
   border: 0;
   border-bottom: 2px solid #dfc824;
 }
-input::placeholder {
-  color: #dfc824;
+input::placeholder{
+  color : #dfc824;
 }
-input {
-  background-color: white;
+input{
+  background-color:white;
 }
 </style>

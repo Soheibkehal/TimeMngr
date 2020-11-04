@@ -43,7 +43,9 @@ export default {
       const time = moment(this.lastClock.time, "HH:mm").format("HH:mm");
 
       if (time == now) {
-        alert("Please wait, at least one minute to stop session");
+        alert(
+          "Please wait, at least one minute to stop or start a new session"
+        );
         return;
       }
 
@@ -55,6 +57,8 @@ export default {
       }
 
       await this.toggleSession(bool);
+
+      this.$root.$emit("fetchWorkingtimes");
     },
     async toggleSession(bool) {
       const now = moment().format("HH:mm:ss");

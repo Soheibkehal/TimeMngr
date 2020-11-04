@@ -1,12 +1,29 @@
 <template>
   <div id="app">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <div id="nav"><router-link to="/login">Login</router-link> |</div>
-
+    <div id="nav">
+      <router-link to="/myaccount" v-if="isAuth">Profile</router-link>
+      <router-link to="/" v-if="isAuth">Dashboard</router-link>
+      <router-link to="/teams">Teams</router-link>
+      <router-link to="/login" v-else>Login</router-link>
+    </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import { user_id } from "./config/constants";
+export default {
+  data() {
+    return {
+      isAuth: false,
+    };
+  },
+  created() {
+    this.isAuth = user_id;
+  },
+};
+</script>
 
 <style>
 html,
@@ -49,8 +66,8 @@ button {
 }
 
 #nav {
-  padding: 30px;
-  width: 300px;
+  padding: 2vw;
+  width: 20%;
 }
 
 #nav a {
@@ -58,6 +75,10 @@ button {
   font-weight: bold;
   font-family: Montserrat;
   color: white;
+}
+#nav a::after {
+  content: "|";
+  margin: 1vw;
 }
 
 #nav a.router-link-exact-active {
