@@ -57,15 +57,6 @@
               <p><b>Role :</b> {{ this.user.role_name }}</p>
             </div>
           </div>
-          <div class="form-group">
-            <div
-              class="form-control"
-              placeholderr="Team"
-              style="text-align: left"
-            >
-              <p><b>Team :</b> Nothing</p>
-            </div>
-          </div>
           <button type="button" v-on:click="Disconnect" class="btn btn-primary">
             Disconnect
           </button>

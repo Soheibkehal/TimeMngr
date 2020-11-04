@@ -25,10 +25,14 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     authenticated: false,
+    workingtimes: [],
   },
   mutations: {
     setAuthentication(state, status) {
       state.authenticated = status;
+    },
+    fetchWorkingTimes(state, workingtimes) {
+      state.workingtimes = workingtimes;
     },
   },
 });

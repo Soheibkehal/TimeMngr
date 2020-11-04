@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal id="modal-add" title="Add session" hide-footer>
+    <b-modal id="modal-add" ref="my-modal" title="Add session" hide-footer>
       Date : {{ selectedDate }}
       <b-form-timepicker
         v-model="selectedStart"
@@ -153,6 +153,14 @@ export default {
       this.selectedEnd = "";
       this.selectedDate = date;
     },
+    selectWorktime(workingtime, date) {
+      this.selectedWorkingtime = workingtime;
+      this.selectedStart = moment(workingtime.start, "HH:mm:ss").format(
+        "HH:mm:ss"
+      );
+      this.selectedEnd = moment(workingtime.end, "HH:mm:ss").format("HH:mm:ss");
+      this.selectedDate = date;
+    },
     setDates() {
       const start = this.selectedStart;
       const end = this.selectedEnd;
@@ -163,26 +171,35 @@ export default {
     },
     async setNewWorkingtime() {
       const { startDate, endDate } = this.setDates();
-      await addWorkingtime(startDate, endDate);
-    },
-    selectWorktime(workingtime, date) {
-      this.selectedWorkingtime = workingtime;
-      this.selectedStart = moment(workingtime.start, "HH:mm:ss").format(
-        "HH:mm:ss"
-      );
-      this.selectedEnd = moment(workingtime.end, "HH:mm:ss").format("HH:mm:ss");
-      this.selectedDate = date;
+      addWorkingtime(startDate, endDate).then(async () => {
+        await this.fetchWorkingTimes();
+        this.$bvModal.hide("modal-add");
+      });
     },
     async setUpdateWorkingtime() {
       const { startDate, endDate } = this.setDates();
-      await updateWorkingtime(startDate, endDate, this.selectedWorkingtime.id);
+      updateWorkingtime(startDate, endDate, this.selectedWorkingtime.id).then(
+        async () => {
+          await this.fetchWorkingTimes();
+          this.$bvModal.hide("modal-update");
+        }
+      );
     },
     async setDeleteWorkingtime() {
-      await deleteWorkingtime(this.selectedWorkingtime.id);
+      deleteWorkingtime(this.selectedWorkingtime.id).then(async () => {
+        await this.fetchWorkingTimes();
+        this.$bvModal.hide("modal-update");
+      });
     },
   },
   created() {
     this.fetchWorkingTimes();
+  },
+  mounted() {
+    this.$root.$on("fetchWorkingtimes", async () => {
+      // your code goes here
+      await this.fetchWorkingTimes();
+    });
   },
 };
 </script>
