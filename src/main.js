@@ -79,6 +79,11 @@ const router = new VueRouter({
       name: "SkillManager",
       component: () => import("@/components/Account/SkillsManager.vue"),
     },
+    {
+      path: "/teams",
+      name: "Teams",
+      component: () => import("@/components/Account/Teams.vue"),
+    },
   ],
 
   mode: "history",

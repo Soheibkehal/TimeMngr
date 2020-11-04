@@ -1,20 +1,72 @@
 <template>
   <div class="container-teams">
+    <b-modal
+      id="modal-team-update"
+      title="Update team"
+      hide-footer
+      class="modal"
+    >
+      <div class="form-group">
+        <input
+          v-model="teamSelected.team_name"
+          type="text"
+          class="form-control"
+          placeholder="Name"
+        />
+      </div>
+      <div class="btn-modal">
+        <button v-on:click="setUpdateTeam()">UPDATE</button>
+      </div>
+    </b-modal>
+
+    <b-modal id="modal-user-add" title="Add team" hide-footer class="modal">
+      <div class="form-group">
+        <input
+          v-model="teamSelected.team_name"
+          type="text"
+          class="form-control"
+          placeholder="Name"
+        />
+      </div>
+      <div class="btn-modal">
+        <button v-on:click="setNewUser()">CREATE</button>
+      </div>
+    </b-modal>
+
+    <b-modal id="modal-team-add" title="Add team" hide-footer class="modal">
+      <div class="form-group">
+        <input
+          v-model="teamSelected.team_name"
+          type="text"
+          class="form-control"
+          placeholder="Name"
+        />
+      </div>
+      <div class="btn-modal">
+        <button v-on:click="setNewTeam()">CREATE</button>
+      </div>
+    </b-modal>
+
     <div id="team-container">
       <div class="upper-container">
         <h2>TEAMS</h2>
-        <button>ADD</button>
+        <button v-on:click="selectTeam({})" v-b-modal.modal-team-add>
+          ADD
+        </button>
       </div>
       <div class="list-container">
-        <div class="team-element">
-          <p class="team">Equipe administative</p>
-          <p class="p-btn">Update</p>
-          <p class="p-btn">Delete</p>
-        </div>
-        <div class="team-element">
-          <p class="team">Equipe administative</p>
-          <p class="p-btn">Update</p>
-          <p class="p-btn">Delete</p>
+        <div class="team-element" v-for="team in teams" :key="team.id">
+          <p class="team" v-on:click="fetchUsers(team.team_id)">
+            {{ team.team_name }}
+          </p>
+          <p
+            class="p-btn"
+            v-b-modal.modal-team-update
+            v-on:click="selectTeam(team)"
+          >
+            Update
+          </p>
+          <p class="p-btn" v-on:click="setDeleteTeam(team.team_id)">Delete</p>
         </div>
       </div>
     </div>
@@ -24,13 +76,9 @@
         <button>ADD</button>
       </div>
       <div class="list-container">
-        <div class="team-element">
-          <p class="team">Hugo DEL PIA</p>
-          <p class="p-btn">Delete</p>
-        </div>
-        <div class="team-element">
-          <p class="team">William SAURHIN</p>
-          <p class="p-btn">Delete</p>
+        <div class="team-element" v-for="user in users" :key="user.id">
+          <p class="team">{{ user.user_email }}</p>
+          <p class="p-btn" v-on:click="deleteUser(user.id)">Delete</p>
         </div>
       </div>
     </div>
@@ -38,8 +86,65 @@
 </template>
 
 <script>
+import {
+  getTeams,
+  getUsers,
+  deleteTeamUser,
+  deleteTeam,
+  changeTeamName,
+  createTeam,
+  changeTeamUser,
+} from "../../api/teams";
+
 export default {
   name: "Teams",
+  data() {
+    return {
+      teams: [],
+      users: [],
+      teamSelected: {},
+    };
+  },
+  methods: {
+    async fetchTeams() {
+      const teams = await getTeams();
+      this.teams = teams;
+    },
+    async fetchUsers(team_id) {
+      const users = await getUsers(team_id);
+      this.users = users;
+    },
+    async deleteUser(id) {
+      await deleteTeamUser(id);
+      await this.fetchTeams();
+    },
+    selectTeam(team) {
+      this.teamSelected = team;
+    },
+    async setUpdateTeam() {
+      changeTeamName(
+        this.teamSelected.team_name,
+        this.teamSelected.team_id
+      ).then(async () => {
+        await this.fetchTeams();
+        this.$bvModal.hide("modal-team-update");
+      });
+    },
+    async setDeleteTeam(id) {
+      await deleteTeam(id);
+      await this.fetchTeams();
+    },
+    async setNewTeam() {
+      createTeam(this.teamSelected.team_name).then(async (team) => {
+        await changeTeamUser(team.id);
+        await this.fetchTeams();
+        this.$bvModal.hide("modal-team-update");
+      });
+    },
+  },
+  created() {
+    this.fetchTeams();
+  },
 };
 </script>
 

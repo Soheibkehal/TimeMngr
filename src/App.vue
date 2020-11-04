@@ -2,9 +2,9 @@
   <div id="app">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div id="nav">
+      <router-link to="/teams">Teams</router-link>
       <router-link to="/myaccount" v-if="isAuth">Profile</router-link>
       <router-link to="/" v-if="isAuth">Dashboard</router-link>
-      <router-link to="/teams">Teams</router-link>
       <router-link to="/login" v-else>Login</router-link>
     </div>
     <router-view />
