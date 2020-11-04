@@ -36,7 +36,7 @@ const store = new Vuex.Store({
 const router = new VueRouter({
   routes: [
     {
-      path: "/dashboard",
+      path: "/",
       name: "Dashboard",
       component: () => import("@/components/Workingtime/Dashboard.vue"),
       beforeEnter: (to, from, next) => {

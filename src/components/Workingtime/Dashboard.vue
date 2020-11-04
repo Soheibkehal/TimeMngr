@@ -1,16 +1,15 @@
 <template>
-<div>
- <div id="nav"><router-link to="/myaccount">Profil</router-link> |</div>
-  <div class="container-dashboard">
-    <div id="clock-container">
-      <Clock />
-    </div>
-    <div id="calendar">
-      <h2>Working times</h2>
-      <Calendar />
+  <div>
+    <div class="container-dashboard">
+      <div id="clock-container">
+        <Clock />
+      </div>
+      <div id="calendar">
+        <h2>Working times</h2>
+        <Calendar />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -26,9 +25,9 @@ export default {
     ok() {
       console.log("ok");
     },
-    Profil(){
+    Profil() {
       this.$router.push({ name: "MyAccount" });
-    }
+    },
   },
 };
 </script>
@@ -134,19 +133,19 @@ export default {
     }
   }
   #nav {
-  padding: 30px;
-  width: 300px;
-}
+    padding: 30px;
+    width: 300px;
+  }
 
-#nav a {
-  left: 25%;
-  font-weight: bold;
-  font-family: Montserrat;
-  color: white;
-}
+  #nav a {
+    left: 25%;
+    font-weight: bold;
+    font-family: Montserrat;
+    color: white;
+  }
 
-#nav a.router-link-exact-active {
-  color: #dfc824;
-}
+  #nav a.router-link-exact-active {
+    color: #dfc824;
+  }
 }
 </style>

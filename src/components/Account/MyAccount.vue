@@ -1,6 +1,6 @@
 <template>
   <div>
-     <button
+    <button
       v-on:click="Skills"
       type="button"
       id="register"
@@ -27,7 +27,7 @@
               placeholderr="Name"
               style="text-align: left"
             >
-              <p><b>Name :</b> Vanissa</p>
+              <p><b>First Name :</b> {{ this.user.fname }}</p>
             </div>
           </div>
           <div class="form-group">
@@ -36,7 +36,7 @@
               placeholderr="Lname"
               style="text-align: left"
             >
-              <p><b>Last Name :</b> Balakichenane</p>
+              <p><b>Last Name :</b> {{ this.user.lname }}</p>
             </div>
           </div>
           <div class="form-group">
@@ -45,7 +45,7 @@
               placeholderr="Email"
               style="text-align: left"
             >
-              <p><b>Email :</b> epitech@epitech.eu</p>
+              <p><b>Email :</b> {{ this.user.email }}</p>
             </div>
           </div>
           <div class="form-group">
@@ -54,7 +54,7 @@
               placeholderr="Role"
               style="text-align: left"
             >
-              <p><b>Role :</b> Nothing</p>
+              <p><b>Role :</b> {{ this.user.role_name }}</p>
             </div>
           </div>
           <div class="form-group">
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { getUser } from "../../api/account";
 export default {
   name: "MyAccount",
   data() {
@@ -87,6 +88,7 @@ export default {
         { text: "Deux", value: "B" },
         { text: "Trois", value: "C" },
       ],
+      user: {},
     };
   },
   methods: {
@@ -96,6 +98,12 @@ export default {
     Skills() {
       this.$router.push({ name: "SkillManager" });
     },
+    async getUserInfo() {
+      this.user = await getUser();
+    },
+  },
+  created() {
+    this.getUserInfo();
   },
 };
 </script>
