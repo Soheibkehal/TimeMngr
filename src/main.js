@@ -52,6 +52,12 @@ const router = new VueRouter({
       },
     },
     {
+      path:"/",
+      name:"login",
+      component: () => import("@/components/Account/Logger.vue"),
+    },
+
+    {
       path: "/login",
       name: "login",
       // route level code-splitting
@@ -79,11 +85,20 @@ const router = new VueRouter({
       name: "SkillManager",
       component: () => import("@/components/Account/SkillsManager.vue"),
     },
+
+      component: () => import("@/components/Account/SkillsManager.vue")
+    },
     {
       path: "/teams",
       name: "Teams",
-      component: () => import("@/components/Account/Teams.vue"),
+      component: () => import("@/components/Account/Teams.vue")
     },
+    {
+      path: "/users",
+      name: "Users",
+      component: () => import("@/components/Account/Users.vue")
+    }
+
   ],
 
   mode: "history",
