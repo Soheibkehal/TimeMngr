@@ -38,8 +38,34 @@
 </template>
 
 <script>
+import { getUser } from "../../api/account";
 export default {
   name: "MyAccount",
+  data() {
+    return {
+      selected: "A",
+      options: [
+        { text: "Un", value: "A" },
+        { text: "Deux", value: "B" },
+        { text: "Trois", value: "C" },
+      ],
+      user: {},
+    };
+  },
+  methods: {
+    Disconnect() {
+      localStorage.clear();
+    },
+    Skills() {
+      this.$router.push({ name: "SkillManager" });
+    },
+    async getUserInfo() {
+      this.user = await getUser();
+    },
+  },
+  created() {
+    this.getUserInfo();
+  },
 };
 </script>
 

@@ -1,9 +1,13 @@
 import axios from "axios";
-import { URL } from "../config/constants";
 import moment from "moment";
 
+import { URL, user_id, loggedHeaders } from "../config/constants";
+axios.defaults.headers = loggedHeaders;
+axios.defaults.withCredentials = true;
 export const getClock = async () => {
-  const res = await axios.get(`${URL}/clocks/1`);
+  const res = await axios.get(`${URL}/clocks/${user_id}`, {
+    headers: loggedHeaders,
+  });
   const clock = res.data.data;
   return clock;
 };
@@ -15,11 +19,9 @@ export const postClock = async (bool) => {
 
   const config = {
     method: "post",
-    url: `${URL}/clocks/1`,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    url: `${URL}/clocks/${user_id}`,
     data,
   };
-  await axios(config);
+  const res = await axios(config);
+  console.log(res.data);
 };
