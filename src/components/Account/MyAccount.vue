@@ -107,7 +107,7 @@ export default {
       this.$router.push({ name: "SkillManager" });
     },
   },
-};s
+};
 </script>
 
 <style scoped>
