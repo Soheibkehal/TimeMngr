@@ -3,11 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <h1>SKILLS</h1>
     <div class="overlay-container">
-      <ul id="example-1">
-        <li v-for="item in items" :key="item.message">
-          {{ item.message }}
-        </li>
-      </ul>
+      <p>Skills 1 <br>
+         skills 2 <br>
+         Skills 3 <br>
+         
+      </p>
     </div>
   </div>
 </template>
@@ -17,12 +17,7 @@ export default {
   name: "SkillManager",
   date() {
     return {
-      items: [
-          
-          { message: "Foo" },
-          { message: "Bar" }
-           
-        ],
+      items: [{ message: "Foo" }, { message: "Bar" }],
     };
   },
 };
@@ -58,4 +53,5 @@ export default {
   left: 10vw;
   width: 20vw;
 }
+
 </style>

@@ -95,6 +95,7 @@ export default {
 ;
 }
 .container h1 {
+  display: flex;
   text-align: center;
   font-size: 1vw;
   font-weight: bold;
@@ -136,4 +137,5 @@ input::placeholder{
 input{
   background-color:white;
 }
+
 </style>
