@@ -58,13 +58,15 @@ export default {
       this.$router.push({ name: "SignIn" });
     },
     async SignIn() {
-      const data = await login(this.myLogin, this.myPass);
-      if (data) {
-        console.log("tout est bon");
-        this.$store.commit("setAuthentication", true);
-        this.$router.replace({ name: "Dashboard" });
-        setUserData(data.id, data.role_id, data.crsf_token);
-      }
+      login(this.myLogin, this.myPass)
+        .then((data) => {
+          console.log("tout est bon");
+          setUserData(data.id, data.role_id, data.crsf_token);
+          window.location.replace("http://localhost:8081/");
+        })
+        .catch(() => {
+          alert("login/password not correct");
+        });
     },
   },
 };

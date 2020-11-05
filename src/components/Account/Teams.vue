@@ -165,18 +165,18 @@ export default {
     },
     async deleteUser(id) {
       await deleteTeamUser(id);
-      await this.fetchUsers(this.teamSelected.team_id);
+      await this.fetchUsers(this.teamSelected);
     },
     async setNewTeam() {
-      createTeam(this.teamSelected.team_name).then(async (team) => {
+      createTeam(this.teamName).then(async (team) => {
         await changeTeamUser(team.id);
         await this.fetchTeams();
-        this.$bvModal.hide("modal-team-update");
+        this.$bvModal.hide("modal-team-add");
       });
     },
     async setNewUser(id) {
       changeTeamUser(this.teamSelected.team_id, id).then(async () => {
-        await this.fetchUsers(this.teamSelected.team_id);
+        await this.fetchUsers(this.teamSelected);
       });
     },
   },

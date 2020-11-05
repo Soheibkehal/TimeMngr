@@ -76,11 +76,13 @@ export default {
         lname: this.lname,
         email: this.email,
         password: this.pwd,
+        avatar: "_.png",
       };
 
-      register
+      register({ user })
         .then((user) => {
           alert(`${user.fname} votre compte a été crée avec succès`);
+          this.$router.push({ path: "/login" });
         })
         .catch(() => alert("Un champ doit etre incorrect"));
     },

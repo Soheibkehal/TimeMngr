@@ -20,8 +20,7 @@ export const login = async (email, password) => {
 };
 
 export const register = async (user) => {
-  const data = JSON.stringify({ user });
-
+  const data = JSON.stringify(user);
   const config = {
     method: "post",
     url: `${URL}/users/signup`,
@@ -31,6 +30,16 @@ export const register = async (user) => {
   const res = await axios(config);
   return res.data.data;
 };
+
+export const logout = async () => {
+  const config = {
+    method: "post",
+    url: `${URL}/users/logout`,
+  };
+
+  await axios(config);
+};
+
 export const getUser = async () => {
   const config = {
     method: "get",

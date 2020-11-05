@@ -35,7 +35,9 @@ export default {
   },
   methods: {
     async getLastClock() {
-      this.lastClock = await getClock();
+      getClock().then((clock) => {
+        this.lastClock = clock ? clock : { status: false, time: "00:00:00" };
+      });
     },
     async postClockAndWorkingtime(bool) {
       const now = moment().format("HH:mm");

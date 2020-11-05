@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { getUser, modifyUser } from "../../api/account";
+import { getUser, modifyUser, logout } from "../../api/account";
 
 export default {
   name: "MyAccount",
@@ -83,9 +83,10 @@ export default {
         this.$bvModal.hide("modal-prevent-closing");
       });
     },
-    disconnect() {
+    async disconnect() {
       localStorage.clear();
-      this.$router.push({ path: "/login" });
+      await logout();
+      window.location.replace("http://localhost:8081/login");
     },
   },
   created() {
