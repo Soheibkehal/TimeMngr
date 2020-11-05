@@ -19,6 +19,18 @@ export const login = async (email, password) => {
   return res.data.data;
 };
 
+export const register = async (user) => {
+  const data = JSON.stringify({ user });
+
+  const config = {
+    method: "post",
+    url: `${URL}/users/signup`,
+    data,
+  };
+
+  const res = await axios(config);
+  return res.data.data;
+};
 export const getUser = async () => {
   const config = {
     method: "get",
@@ -69,7 +81,6 @@ export const modifyUser = async (user) => {
 export const modifyUserAdmin = async (user) => {
   let userData = user.role_id ? user : { ...user, role_id: 1 }; //inject role_id
   const data = JSON.stringify({ user: userData });
-  console.log(data);
 
   const config = {
     method: "put",

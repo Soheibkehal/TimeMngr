@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <h1>SignIn</h1>
     <div class="overlay-container">
       <form>
@@ -9,8 +9,7 @@
             type="text"
             class="form-control"
             placeholder="First name"
-            
-            id="FirstName"
+            v-model="fname"
           />
         </div>
         <div class="form-group">
@@ -18,7 +17,7 @@
             type="text"
             class="form-control"
             placeholder="Last name"
-            id="Lastname"
+            v-model="lname"
           />
         </div>
         <div class="form-group">
@@ -26,8 +25,7 @@
             type="email"
             class="form-control"
             placeholder="Email"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            v-model="email"
           />
         </div>
         <div class="form-group">
@@ -35,48 +33,60 @@
             type="password"
             placeholder="Password"
             class="form-control"
-            
-            id="exampleInputPassword1"
+            v-model="pwd"
+          />
+          <input
+            type="password"
+            placeholder="Confirm password"
+            class="form-control"
+            v-model="confirmPwd"
           />
         </div>
-       <button v-on:click="signIn" type="button" class="btn btn-primary">Sign In</button>
-       
+        <button v-on:click="signIn" type="button" class="btn btn-primary">
+          Sign In
+        </button>
       </form>
-       
-      
     </div>
   </div>
-  
 </template>
 
 <script>
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import { register } from "../../api/account";
 
 export default {
   name: "Signin",
-  data(){
+  data() {
     return {
-      userName:'',
-      userid:''
-    }
+      fname: "",
+      lname: "",
+      email: "",
+      pwd: "",
+      confirmPwd: "",
+    };
   },
-  methods:{
+  methods: {
     async signIn() {
-      await axios.get(`http://localhost:4000/api/users/2`)
-       .then(Response => this.userid = Response.data.data.id);
-      await axios.get(`http://localhost:4000/api/users/2`)
-       .then(Response => this.UserName = Response.data.data.fname);          
-      localStorage.setItem('userid', this.userid);
-      localStorage.setItem('UserName', this.UserName);
-      
+      if (this.pwd !== this.confirmPwd) {
+        alert("Password and Confirm password are not the same !");
+        return;
+      }
+
+      const user = {
+        fname: this.fname,
+        lname: this.lname,
+        email: this.email,
+        password: this.pwd,
+      };
+
+      register
+        .then((user) => {
+          alert(`${user.fname} votre compte a été crée avec succès`);
+        })
+        .catch(() => alert("Un champ doit etre incorrect"));
     },
-    
-  }
-  
+  },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .container {
@@ -92,7 +102,6 @@ export default {
   overflow: hidden;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
   background-color: #1f2224;
-;
 }
 .container h1 {
   display: flex;
@@ -118,24 +127,22 @@ button {
   padding: 10px 40px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  border : 0;
+  border: 0;
 }
 .form-group {
   border: 10px;
   overflow: hidden;
-  
 }
-.form-control{
+.form-control {
   background-color: transparent;
-  color : white;
+  color: white;
   border: 0;
   border-bottom: 2px solid #dfc824;
 }
-input::placeholder{
-  color : #dfc824;
+input::placeholder {
+  color: #dfc824;
 }
-input{
-  background-color:white;
+input {
+  background-color: white;
 }
-
 </style>

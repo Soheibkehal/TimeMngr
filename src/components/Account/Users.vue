@@ -19,13 +19,12 @@
         placeholder="Email"
         v-model="userSelected.email"
       />
-      <select v-model="Role">
+      <select v-model="userSelected.role_id">
         <option disabled value="">Role</option>
         <option value="3">Admin</option>
         <option value="2">Manager</option>
         <option value="1">Employee</option>
       </select>
-      <span>Role : {{ Role }}</span>
       <div class="btn-modal">
         <button v-on:click="setUpdateUser()">UDPATE</button>
       </div>
@@ -57,7 +56,6 @@ export default {
       search: "",
       users: [],
       userSelected: {},
-      Role: "",
     };
   },
   computed: {
@@ -73,7 +71,6 @@ export default {
   methods: {
     selectUser(user) {
       this.userSelected = user;
-      this.Role = user.role_id;
     },
     async fetchUsers() {
       this.users = await getUsers();
