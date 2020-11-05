@@ -38,7 +38,8 @@ export default {
                   max: 24
               }
           }]
-      }
+      },
+      animateScale: true,
   }
     } catch (e) {
       console.error(e)

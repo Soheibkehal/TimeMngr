@@ -102,36 +102,42 @@ export const WorkedtimesforChart = async () => {
       "end":"2020-11-02T18:28:00",
       "id":8,
       "start":"2020-11-02T08:00:00"
+    },
+    {
+      "end":"2020-11-01T18:28:00",
+      "id":8,
+      "start":"2020-11-01T08:00:00"
     }
    ];//, "YYYY-MM-DDTHH:MM:SS"
    let aWorkedTime = [0, 0, 0, 0, 0, 0, 0];
-   let aShouldHaveWorked = [9,9,9,9,9,9,9];
+   let aShouldHaveWorked = [9,9,9,9,9,0,0];
    let i = 0
-   /*workingtimes.forEach(wt => {
-     if (aWorkedTime[i] != 0 && moment(wt.end).diff(moment(aWorkedTime[i]), "days") == 0)
-     aWorkedTime[i] = moment(wt.end).diff(moment(wt.start), "hours");
-   });*/
    for (let i = 0; i < workingtimes.length; i++) {
     let wt = workingtimes[i];
-    aWorkedTime[i] = moment(wt.end).diff(moment(wt.start), "hours");
-    if (i + 1 < workingtimes.length && moment(workingtimes[i + 1]).diff(moment(wt), "days") == 0) {
+    aWorkedTime[moment(wt.start).day()] = moment(wt.end).diff(moment(wt.start), "hours");
+    /*if (i + 1 < workingtimes.length && moment(workingtimes[i + 1]).diff(moment(wt), "days") == 0) {
+      console.log("eh");
       wt = workingtimes[i + 1];
       aWorkedTime[i] += moment(wt.end).diff(moment(wt.start), "hours");
       i++;
-    }
-
+    }*/
+   }
+   for (let i = 1; i < 7; i++) {
+     aShouldHaveWorked[i] += aShouldHaveWorked[i - 1] - aWorkedTime[i - 1];
    }
   return {
-      labels: ['Monday', 'Tuesday', 'Wednesday'],
+      labels: ['Monday', 'Tuesday', 'Wednesday', "Thursday", "Friday", "Saturday", "Sunday"],
       datasets: [
           {
           label: 'Worked time',
-          backgroundColor: '#f87979',
+          backgroundColor: 'rgba(248,121,121, 0.7)',
           data: aWorkedTime
           },
           {
           label: 'Working times',
-          backgroundColor: '#0099ff',
+          backgroundColor: 'rgba(223,200,36, 0.7)',
+          strokeColor: "#f87979",
+          pointStrokeColor: "#f87979",
           data: aShouldHaveWorked
           },
       ]
