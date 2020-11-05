@@ -5,6 +5,7 @@
       <router-link to="/teams">Teams</router-link>
       <router-link to="/myaccount" v-if="isAuth">Profile</router-link>
       <router-link to="/" v-if="isAuth">Dashboard</router-link>
+      <router-link to="/users" v-if="isAdmin">Users</router-link>
       <router-link to="/login" v-else>Login</router-link>
     </div>
     <router-view />
@@ -13,10 +14,12 @@
 
 <script>
 import { user_id } from "./config/constants";
+import { role_id } from "./config/constants";
 export default {
   data() {
     return {
       isAuth: false,
+      isAdmin: role_id == 3,
     };
   },
   created() {

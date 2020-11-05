@@ -1,59 +1,63 @@
 <template>
   <div class="container">
+    <b-modal id="modal-1" title="User Profile" hide-footer>
+      <input
+        type="text"
+        class="my-4"
+        placeholder="First name"
+        v-model="userSelected.fname"
+      />
+      <input
+        type="text"
+        class="my-4"
+        placeholder="Last name"
+        v-model="userSelected.lname"
+      />
+      <input
+        type="text"
+        class="my-4"
+        placeholder="Email"
+        v-model="userSelected.email"
+      />
+      <select v-model="Role">
+        <option disabled value="">Role</option>
+        <option value="3">Admin</option>
+        <option value="2">Manager</option>
+        <option value="1">Employee</option>
+      </select>
+      <span>Role : {{ Role }}</span>
+      <div class="btn-modal">
+        <button v-on:click="setUpdateUser()">UDPATE</button>
+      </div>
+    </b-modal>
     <div>
-      <h1>
-        <b> Users </b>
-        <input
-          type="text"
-          v-model="search"
-          class="search"
-          placeholder="Search User"
-        />
-      </h1>
+      <b> Users </b>
+      <input
+        type="text"
+        v-model="search"
+        class="search"
+        placeholder="Search User"
+      />
     </div>
-    <div class="overlay-container">
-      <form>
-        <div class="form-group">
-          <div
-            v-for="user in filterUser"
-            v-bind:key="user"
-            class="form-control"
-          >
-            <p>
-              <b>{{ user.fname }} </b> {{ user.lname }}
-            </p>
-            <b-button v-b-modal.modal-1>Modifiy</b-button>
-
-            <b-modal id="modal-1" title="User Profil">
-              <input type="text" class="my-4" placeholder="Modify FirstName" />
-              <input type="text" class="my-4" placeholder="Modify LastName" />
-              <input type="text" class="my-4" placeholder="Modify Email" />
-              <select v-model="Role">
-                <option disabled value="">Role</option>
-                <option value="1">Admin</option>
-                <option value="2">Manager</option>
-                <option value="3">Employee</option>
-              </select>
-              <span>Role : {{ Role }}</span>
-            </b-modal>
-          </div>
-        </div>
-      </form>
+    <div v-for="user in filterUser" :key="user.id" class="user-wrapper">
+      <p>
+        <b>{{ user.fname }} </b> {{ user.lname }}
+      </p>
+      <button v-b-modal.modal-1 v-on:click="selectUser(user)">Modify</button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import VueAxios from "vue-axios";
-import $ from "jquery";
+import { getUsers, modifyUserAdmin } from "../../api/account";
 export default {
   name: "users",
   data() {
     return {
       search: "",
       users: [],
-      Role: ''
+      userSelected: {},
+      Role: "",
     };
   },
   computed: {
@@ -64,14 +68,22 @@ export default {
     },
   },
   created() {
-    axios
-      .get(`http://localhost:4000/api/users`)
-      .then((Response) => (this.users = Response.data.data));
+    this.fetchUsers();
   },
   methods: {
-    // itemClicked(user) {
-    //   $("#modal-1").modal("show");
-    // },
+    selectUser(user) {
+      this.userSelected = user;
+      this.Role = user.role_id;
+    },
+    async fetchUsers() {
+      this.users = await getUsers();
+    },
+    async setUpdateUser() {
+      modifyUserAdmin(this.userSelected).then(async () => {
+        this.$bvModal.hide("modal-1");
+        this.fetchUsers();
+      });
+    },
   },
 };
 </script>
@@ -80,21 +92,17 @@ export default {
 .container {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
   margin-top: 2vw;
-  width: 30vw;
+  width: 60vw;
   height: 35vw;
   border-radius: 2vw;
-  overflow: hidden;
+  overflow: scroll;
+  overflow-x: hidden;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2), 0px 10px 10px rgba(0, 0, 0, 0.2);
   background-color: #1f2224;
-}
-.overlay-container {
-  top: 8vw;
-  left: 10vw;
-  width: 20vw;
 }
 .container h1 {
   text-align: center;
@@ -111,16 +119,25 @@ export default {
   border: 0;
   border-bottom: 2px solid #dfc824;
 }
+.search {
+  margin: 3vw;
+}
 .search::placeholder {
   color: #dfc824;
 }
-.form-control {
+.user-wrapper {
   background-color: transparent;
   color: white;
   border: 0;
-  border-bottom: 2px solid #dfc824;
   text-align: left;
   margin-bottom: 4vw;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+p {
+  margin: 0;
 }
 .my-4 {
   background-color: transparent;
@@ -130,18 +147,7 @@ export default {
   text-align: left;
   margin-bottom: 4vw;
 }
-button {
-  border-radius: 15px;
-  background-color: #dfc824;
-  color: #fff;
-  font-size: 0.5vw;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: 0;
-  margin-left: 16vw;
-  margin-top: -5vw;
-}
+
 input {
   background-color: white;
 }

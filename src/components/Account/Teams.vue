@@ -8,7 +8,7 @@
     >
       <div class="form-group">
         <input
-          v-model="teamSelected.team_name"
+          v-model="teamName"
           type="text"
           class="form-control"
           placeholder="Name"
@@ -19,24 +19,28 @@
       </div>
     </b-modal>
 
-    <b-modal id="modal-user-add" title="Add team" hide-footer class="modal">
+    <b-modal id="modal-user-add" title="Add user" hide-footer class="modal">
       <div class="form-group">
         <input
-          v-model="teamSelected.team_name"
-          type="text"
+          v-model="email"
+          type="email"
           class="form-control"
-          placeholder="Name"
+          placeholder="Email"
+          v-on:change="setUserByEmail"
         />
-      </div>
-      <div class="btn-modal">
-        <button v-on:click="setNewUser()">CREATE</button>
+        <div class="list-container">
+          <div class="team-element" v-for="user in emailUsers" :key="user.id">
+            <p class="team">{{ user.email }}</p>
+            <p class="p-btn" v-on:click="setNewUser(user.id)">ADD</p>
+          </div>
+        </div>
       </div>
     </b-modal>
 
     <b-modal id="modal-team-add" title="Add team" hide-footer class="modal">
       <div class="form-group">
         <input
-          v-model="teamSelected.team_name"
+          v-model="teamName"
           type="text"
           class="form-control"
           placeholder="Name"
@@ -50,35 +54,53 @@
     <div id="team-container">
       <div class="upper-container">
         <h2>TEAMS</h2>
-        <button v-on:click="selectTeam({})" v-b-modal.modal-team-add>
+        <button
+          v-on:click="selectTeam({})"
+          v-b-modal.modal-team-add
+          v-if="isManager"
+        >
           ADD
         </button>
       </div>
       <div class="list-container">
         <div class="team-element" v-for="team in teams" :key="team.id">
-          <p class="team" v-on:click="fetchUsers(team.team_id)">
+          <p class="team" v-on:click="fetchUsers(team)">
             {{ team.team_name }}
           </p>
           <p
             class="p-btn"
             v-b-modal.modal-team-update
             v-on:click="selectTeam(team)"
+            v-if="isManager"
           >
             Update
           </p>
-          <p class="p-btn" v-on:click="setDeleteTeam(team.team_id)">Delete</p>
+          <p
+            class="p-btn"
+            v-on:click="setDeleteTeam(team.team_id)"
+            v-if="isManager"
+          >
+            Delete
+          </p>
         </div>
       </div>
     </div>
     <div id="user-container">
       <div class="upper-container">
         <h2>USERS</h2>
-        <button>ADD</button>
+        <button
+          v-b-modal.modal-user-add
+          v-if="this.teamSelected.team_id && isManager"
+        >
+          ADD
+        </button>
       </div>
       <div class="list-container">
         <div class="team-element" v-for="user in users" :key="user.id">
           <p class="team">{{ user.user_email }}</p>
-          <p class="p-btn" v-on:click="deleteUser(user.id)">Delete</p>
+          <p class="p-btn" v-on:click="deleteUser(user.id)" v-if="isManager">
+            Delete
+          </p>
         </div>
       </div>
     </div>
@@ -96,6 +118,8 @@ import {
   changeTeamUser,
 } from "../../api/teams";
 
+import { getUsersByEmail } from "../../api/account";
+import { role_id } from "../../config/constants";
 export default {
   name: "Teams",
   data() {
@@ -103,42 +127,56 @@ export default {
       teams: [],
       users: [],
       teamSelected: {},
+      email: "",
+      emailUsers: [],
+      teamName: "",
+      isManager: role_id == 2,
     };
   },
   methods: {
+    selectTeam(team) {
+      this.teamSelected = team;
+      this.teamName = team.team_name;
+    },
+    async setUserByEmail() {
+      const users = await getUsersByEmail(this.email);
+      this.emailUsers = users;
+    },
     async fetchTeams() {
       const teams = await getTeams();
       this.teams = teams;
     },
-    async fetchUsers(team_id) {
-      const users = await getUsers(team_id);
+    async fetchUsers(team) {
+      this.selectTeam(team);
+      const users = await getUsers(team.team_id);
       this.users = users;
     },
-    async deleteUser(id) {
-      await deleteTeamUser(id);
-      await this.fetchTeams();
-    },
-    selectTeam(team) {
-      this.teamSelected = team;
-    },
     async setUpdateTeam() {
-      changeTeamName(
-        this.teamSelected.team_name,
-        this.teamSelected.team_id
-      ).then(async () => {
-        await this.fetchTeams();
-        this.$bvModal.hide("modal-team-update");
-      });
+      changeTeamName(this.teamName, this.teamSelected.team_id).then(
+        async () => {
+          await this.fetchTeams();
+          this.$bvModal.hide("modal-team-update");
+        }
+      );
     },
     async setDeleteTeam(id) {
       await deleteTeam(id);
       await this.fetchTeams();
+    },
+    async deleteUser(id) {
+      await deleteTeamUser(id);
+      await this.fetchUsers(this.teamSelected.team_id);
     },
     async setNewTeam() {
       createTeam(this.teamSelected.team_name).then(async (team) => {
         await changeTeamUser(team.id);
         await this.fetchTeams();
         this.$bvModal.hide("modal-team-update");
+      });
+    },
+    async setNewUser(id) {
+      changeTeamUser(this.teamSelected.team_id, id).then(async () => {
+        await this.fetchUsers(this.teamSelected.team_id);
       });
     },
   },
@@ -149,6 +187,32 @@ export default {
 </script>
 
 <style lang="scss">
+.team-element {
+  display: flex;
+  min-height: 3vw;
+  border-bottom: 1px solid #161617;
+  align-items: center;
+  &:last-child {
+    border: 0;
+  }
+  p.team {
+    margin: 0;
+    font-size: 1.2vw;
+    font-weight: 700;
+    cursor: pointer;
+    color: white;
+    width: 50%;
+    color: #dfc824;
+  }
+  p.p-btn {
+    color: #dfc824;
+    font-size: 1vw;
+    font-weight: 700;
+    cursor: pointer;
+    width: auto;
+    margin: 0 1vw;
+  }
+}
 h2 {
   text-align: left;
   color: white;
@@ -179,6 +243,7 @@ h2 {
     .team-element {
       p.team {
         width: 60%;
+        color: white;
       }
     }
   }
@@ -193,34 +258,8 @@ h2 {
     .team-element {
       p.team {
         width: 80%;
+        color: white;
       }
-    }
-  }
-  .team-element {
-    display: flex;
-    min-height: 3vw;
-    border-bottom: 1px solid #161617;
-    align-items: center;
-    &:last-child {
-      border: 0;
-    }
-    p.team {
-      margin: 0;
-      font-size: 1.2vw;
-      font-weight: 700;
-      cursor: pointer;
-      color: white;
-    }
-    p.team:hover {
-      color: #dfc824;
-    }
-    p.p-btn {
-      color: #dfc824;
-      font-size: 1vw;
-      font-weight: 700;
-      cursor: pointer;
-      width: auto;
-      margin: 0 1vw;
     }
   }
 }
